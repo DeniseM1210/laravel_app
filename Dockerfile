@@ -10,7 +10,7 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 RUN chmod -R 777 storage bootstrap/cache
 
