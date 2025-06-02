@@ -13,8 +13,10 @@ RUN apt-get update && apt-get install -y \
     git \
     libzip-dev \
     openssl \
+    libicu-dev \
+    g++ \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl gd
+    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl gd intl opcache
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -22,12 +24,11 @@ WORKDIR /var/www
 
 COPY . .
 
-# Cambia permisos antes de instalar composer para evitar problemas de permisos
 RUN chown -R www-data:www-data /var/www
 
 USER www-data
 
-RUN composer install --optimize-autoloader --no-dev --no-interaction --prefer-dist
+RUN composer install --optimize-autoloader --no-dev --no-interaction --prefer-dist || (cat /root/.composer/composer.log && false)
 
 USER root
 
