@@ -2,24 +2,8 @@ services:
   - type: web
     name: laravel-app
     env: docker
-    repo: https://github.com/DeniseM1210/laravel_app.git
-    branch: master
     plan: free
-    autoDeploy: true
-    envVars:
-      - key: APP_ENV
-        value: production
-      - key: APP_KEY
-        generateValue: true
-      - key: DB_CONNECTION
-        value: mysql
-      - key: DB_HOST
-        value: btd09d2jis1xdrtolu1w-mysql.services.clever-cloud.com
-      - key: DB_PORT
-        value: 3306
-      - key: DB_DATABASE
-        value: btd09d2jis1xdrtolu1w
-      - key: DB_USERNAME
-        value: uaayyh5vhg01gz0h
-      - key: DB_PASSWORD
-        value: myubJ68FiGMFjp7RWEKG
+    branch: main
+    dockerfilePath: ./Dockerfile
+    buildCommand: ""
+    startCommand: ""
